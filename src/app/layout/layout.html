@@ -1,6 +1,25 @@
 <div class="row">
   <div class="col-3">
-    <input class="form-control" [(ngModel)]="actor"/>
+    <input class="form-control"
+          required
+          minlength="4"
+          [(ngModel)]="actor"
+          #name="ngModel"
+          [ngClass]="{'border-danger':(name.invalid && (name.dirty || name.touched))}"/>
+    @if (name.invalid && (name.dirty || name.touched)) {
+      @if (name.hasError('required')) {
+        <small class="text-danger">
+          Field is required
+        </small>
+        <br/>
+      }
+      @if (name.hasError('minlength')) {
+        <small class="text-danger">
+          Field must have at least 4 characters
+        </small>
+        <br/>
+      }
+    }
   </div>
 </div>
 
